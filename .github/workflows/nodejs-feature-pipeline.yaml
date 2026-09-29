@@ -1,0 +1,32 @@
+name: nodejs feature pipeline
+on: 
+  workflow_call:
+    inputs:
+      project:
+        description: 'Project name'
+        required: true
+        type: string
+      component:
+        description: 'Component name'
+        required: true
+        type: string
+env:
+  project: ${{ inputs.project }}
+  component: ${{ inputs.component }}
+  acc_id: 220719767845
+
+jobs:
+  trigger:
+    runs-on: self-hosted
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v6
+
+      - name: read packed.json version
+        id: package version
+        run: |
+          app_version=$(jq -r .version package.json)
+          echo "app_version=$app_version" >> GITHUB_ENV
+
+      - name: print the version
+        run: echo "$app_version"
