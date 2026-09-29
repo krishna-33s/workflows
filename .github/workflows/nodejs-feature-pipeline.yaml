@@ -25,8 +25,8 @@ jobs:
       - name: read packed.json version
         id: package_version
         run: |
-          app_version=$(jq -r .version package.json)
-          echo "app_version=$app_version" >> GITHUB_ENV
+          APP_VERSION=$(jq -r .version package.json)
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
       - name: print the version
-        run: echo "$app_version"
+        run: echo "$APP_VERSION"
